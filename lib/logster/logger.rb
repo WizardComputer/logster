@@ -112,6 +112,9 @@ module Logster
       opts ||= {}
       opts[:env] ||= Thread.current[LOGSTER_ENV]
 
+      if message.include?("ERROR")
+        severity = 3
+      end
       report_to_store(severity, progname, message, opts)
     rescue => e
       # don't blow up if STDERR is somehow closed
